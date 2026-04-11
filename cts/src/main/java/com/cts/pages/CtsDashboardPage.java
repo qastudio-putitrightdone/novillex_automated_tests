@@ -25,10 +25,11 @@ public class CtsDashboardPage extends CtsBasePage {
         return this;
     }
 
-    @Step("Logout from CTS")
+    @Step("Logging out from CTS")
     public LoginPage logoutFromCts() {
         logoutButton.click();
         page.waitForURL("**/sign-in");
+        attachScreenshot(page, "Logout from CTS");
 
         return new LoginPage(page);
     }

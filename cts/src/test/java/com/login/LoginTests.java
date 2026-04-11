@@ -18,7 +18,7 @@ public class LoginTests extends BaseTests {
     @Epic("Login")
     @Feature("CTS Login Screen")
     @Story("User Login verification")
-    @Description("User Login verification")
+    @Description("Login to CTS – Cheque Truncation system.")
     @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
     public void loginToCts(String userId, String password) {
         LoginPage loginPage = new LoginPage(page);
@@ -27,6 +27,21 @@ public class LoginTests extends BaseTests {
         CtsDashboardPage ctsDashboardPage = new CtsDashboardPage(page);
         ctsDashboardPage
                 .verifyDashboardPageNavigation();
+    }
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User Login verification")
+    @Description("To verify the if user is able to logout from CTS.")
+    @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
+    public void logoutFromCts(String userId, String password) {
+        LoginPage loginPage = new LoginPage(page);
+        loginAccess.set(loginPage
+                .loginToCTS(userId, password));
+        CtsDashboardPage ctsDashboardPage = new CtsDashboardPage(page);
+        ctsDashboardPage
+                .verifyDashboardPageNavigation()
+                .logoutFromCts();
     }
 
     @AfterMethod(alwaysRun = true)
