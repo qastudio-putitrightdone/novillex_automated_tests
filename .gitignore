@@ -38,3 +38,5 @@ build/
 
 ### Mac OS ###
 .DS_Store
+/cts/allure-report/*
+/cts/allure-results/*
