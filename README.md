@@ -81,7 +81,7 @@ allure --version
 ### Clone Repository
 
 ```bash
-git clone <repository-url>
+git clone <https://github.com/qastudio-putitrightdone/novillex_automated_tests.git>
 cd novillex_automated_tests
 ```
 

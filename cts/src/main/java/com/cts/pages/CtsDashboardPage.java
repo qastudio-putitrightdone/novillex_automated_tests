@@ -11,9 +11,15 @@ public class CtsDashboardPage extends CtsBasePage {
 
     private Locator logoutButton;
 
+    private Locator bankheader;
+    private Locator notifications ;
+
+
     public CtsDashboardPage(Page page) {
         super(page);
         this.page = page;
+        this.bankheader = page.locator(".text-center.justify-start.text-neutral-700.text-xs.font-medium.font-lato");
+        this.notifications = page.locator(".dropdown.text-gray-400");
         this.logoutButton = page.locator(".header svg").nth(2);
     }
 

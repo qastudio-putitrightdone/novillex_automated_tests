@@ -14,6 +14,29 @@ import org.testng.annotations.Test;
 public class LoginTests extends BaseTests {
 
     private ThreadLocal<String> loginAccess = new ThreadLocal<>();
+    public static final String VERIFIED = "Successfully verified user.";
+    public static final String ALREADY_LOGGED_IN = "User Already Logged in.";
+    public static final String INVALID_USERID="Invalid User.";
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User already logged in verification")
+    @Description("To verify that if user is already logged in, it should display the message as user already logged")
+    public void loginuseridloggedinmsgs() {
+        LoginPage loginPage = new LoginPage(page);
+        loginPage.enterUserId("1001").
+                verifyUserVerifiedMessage(ALREADY_LOGGED_IN);
+    }
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User verification")
+    @Description("To verify when user enters the correct user id and press tab then “Successfully Verified User“ message should display on the screen")
+    public void loginuseridsuceessmsgs() {
+        LoginPage loginPage = new LoginPage(page);
+        loginPage.enterUserId("1003").
+                verifyUserVerifiedMessage(VERIFIED);
+    }
 
     @Epic("Login")
     @Feature("CTS Login Screen")
