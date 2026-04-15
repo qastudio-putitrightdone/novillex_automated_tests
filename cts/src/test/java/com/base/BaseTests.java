@@ -90,6 +90,16 @@ public class BaseTests {
         } else if (testStatus == ITestResult.FAILURE) {
             Allure.step("Test Failed !!!", Status.FAILED);
 
+            //Shubham---
+            Throwable error = iTestResult.getThrowable();
+                // 🔥 Differentiate failure types
+            if (error instanceof AssertionError) {
+                Allure.step("Assertion Failure", Status.FAILED);
+            } else if (error instanceof com.microsoft.playwright.TimeoutError) {
+                Allure.step("Timeout Issue", Status.BROKEN);
+            } else {
+                Allure.step("Other Exception", Status.BROKEN);
+            }
             byte[] capturedScreen = page.screenshot();
             Allure.addAttachment("Failed Test" + System.currentTimeMillis(),
                     "image/png", new ByteArrayInputStream(capturedScreen), "png");
