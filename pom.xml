@@ -13,6 +13,7 @@
         <module>api</module>
         <module>mobile</module>
         <module>cts</module>
+        <module>nach</module>
         <module>cbs</module>
     </modules>
 
