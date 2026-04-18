@@ -6,6 +6,6 @@ public class LoginData {
 
     @DataProvider(name = "userData")
     public Object[][] getLoginData() {
-        return new Object[][] {{"1003", "Qwerty@123"}};
+        return new Object[][] {{"8585", "Bank@123"}};
     }
 }
