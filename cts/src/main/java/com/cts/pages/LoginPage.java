@@ -1,10 +1,10 @@
 package com.cts.pages;
 
-import com.google.gson.JsonParser;
 import com.microsoft.playwright.Locator;
 import com.microsoft.playwright.Page;
 import io.qameta.allure.Step;
-import org.athena.BasePage;
+
+import static com.cts.utils.JsUtils.fetchLoginAccessKey;
 
 public class LoginPage extends CtsBasePage {
 
@@ -41,17 +41,12 @@ public class LoginPage extends CtsBasePage {
     }
 
     @Step("Logging in to CTS with user ID: {userId}")
-    public String loginToCTS(String userId, String password) {
+    public LoginResults loginToCTS(String userId, String password) {
         enterUserId(userId);
         enterPassword(password);
-        page.waitForResponse(response -> {
-            if (response.url().contains("auth/login") && response.status() == 200) {
-                accessToken.set(JsonParser.parseString(response.text()).getAsJsonObject().get("details").getAsJsonObject().get("accessToken").getAsString());
-                return true;
-            }
-            return false;
-        }, loginButton::click);
+        Page page1 = page.waitForPopup(() -> clickLogin());
+        accessToken.set(fetchLoginAccessKey(page1));
 
-        return accessToken.get();
+        return new LoginResults(page1, accessToken.get());
     }
 }

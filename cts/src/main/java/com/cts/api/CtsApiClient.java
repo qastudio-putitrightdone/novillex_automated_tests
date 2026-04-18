@@ -28,7 +28,6 @@ public class CtsApiClient {
         HashMap<String, String> headerMap = new HashMap<>();
         headerMap.put("Accept", "application/json, text/plain, */*");
         headerMap.put("host", getConfigMap().getProperty("host"));
-//        headerMap.put("ipaddress", getConfigMap().getProperty("ip"));
         headerMap.put("origin", getConfigMap().getProperty("url"));
         headerMap.put("referer", getConfigMap().getProperty("refer"));
         headerMap.put("access-token", accessToken);
