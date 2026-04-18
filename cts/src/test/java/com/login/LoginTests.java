@@ -90,8 +90,8 @@ public class LoginTests extends BaseTests {
     @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
     public void testForgetPassword(String userId, String password) {
         LoginPage loginPage = new LoginPage(page);
-//        loginAccess.set(loginPage
-//                .loginToCTS(userId, password));
+        loginAccess.set(loginPage
+                .loginToCTS(userId, password));
         loginPage.clickOnForgotPassword();
         loginPage.clickOnNextButton();
         loginPage.verifyUserVerifiedMessage(FORGET_PASS);
