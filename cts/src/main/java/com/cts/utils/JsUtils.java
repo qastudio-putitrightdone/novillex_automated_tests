@@ -24,7 +24,6 @@ public class JsUtils {
                 JsonNode authNode = objectMapper.readTree(jsonNode.get("auth").asText());
                 token = authNode.get("session").get("token").asText();
                 signedIn = authNode.get("session").get("signedIn").asBoolean();
-                System.out.println(signedIn);
             } catch (JsonProcessingException e) {
                 System.out.println("Error while parsing auth token");
             }
