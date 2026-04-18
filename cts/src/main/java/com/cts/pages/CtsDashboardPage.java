@@ -23,6 +23,7 @@ public class CtsDashboardPage extends CtsBasePage {
     private Locator notifications ;
     private Locator sideMenu;
     private Locator sideMenuItems;
+    private Locator dashboardmsg;
 
 
     public CtsDashboardPage(Page page) {
@@ -31,8 +32,11 @@ public class CtsDashboardPage extends CtsBasePage {
         this.headerSection = page.locator(".text-center.justify-start.text-neutral-700.text-xs.font-medium.font-lato");
         this.notifications = page.locator(".dropdown.text-gray-400");
         this.logoutButton = page.locator(".header svg").nth(2);
-        this.sideMenu=page.locator(".menu.menu-transparent.px-2.pb-2");
-        this.sideMenuItems=page.locator("nav.menu > div.menu-collapse > div.menu-collapse-item");
+//        this.sideMenu=page.locator(".menu.menu-transparent.px-2.pb-2");
+//        this.sideMenuItems=page.locator("nav.menu > div.menu-collapse > div.menu-collapse-item");
+//        Locator sideNav = page.locator("div.app-layout-modern").locator("div.side-nav");
+        this.dashboardmsg=page.locator(".notification-content");
+        page.locator(".menu-collapse-item.menu-collapse-item-transparent.mb-2").first().click();
     }
 
     @Step("Verify CTS Dashboard is displayed")
@@ -48,22 +52,16 @@ public class CtsDashboardPage extends CtsBasePage {
         Locator filtered = headerSection
                 .filter(new Locator.FilterOptions().setHasText(text));
         assertThat(filtered).isVisible();
-//        assertThat(headerSection).containsText(text);
         return this;
     }
 
     @Step("Verify header contains Date")
     public CtsDashboardPage verifyDateInHeader() {
-        Locator date = headerSection.last();   // last element = date
+        Locator date = headerSection.last();
         String uiDate = date.innerText().trim();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(
                 "EEEE, dd MMMM, yyyy", Locale.ENGLISH);
         String systemDate = LocalDate.now().format(formatter);
-//        if (!uiDate.equals(systemDate)) {
-//            throw new AssertionError(
-//                    "Date mismatch \nUI: " + uiDate + "\nSystem: " + systemDate
-//            );
-//        }
         return this;
     }
 
@@ -102,15 +100,12 @@ public class CtsDashboardPage extends CtsBasePage {
         }
     }
 
-    @Step("Verify {text} submenus")
+    @Step("Verify {text} submenus")//need change
     public void verifyInwardSubMenus(String... expectedSubMenus) {
-//        page.waitForLoadState(LoadState.NETWORKIDLE);
-        page.locator(".menu-collapse-item.menu-collapse-item-transparent.mb-2").first().click();
-        for (String subMenu : expectedSubMenus) {
 
+        for (String subMenu : expectedSubMenus) {
             Locator item = page.locator(".menu-item.menu-item-light.menu-item-hoverable")
                     .filter(new Locator.FilterOptions().setHasText(Pattern.compile("^" + subMenu + "$")));
-
             assertThat(item).isVisible();
         }
     }

@@ -14,6 +14,9 @@ import org.testng.annotations.Test;
 public class DashboardTests extends BaseTests {
     private ThreadLocal<String> loginAccess = new ThreadLocal<>();
     public static final String VERIFIED = "Successfully verified user.";
+    public static final String MENU = "Inward";
+    public static final String FILE_UPLOAD = "File Upload";
+    public static final String MARK_PENDING = "Mark Pending";
 
     @Epic("Login")
     @Feature("CTS Login Screen")

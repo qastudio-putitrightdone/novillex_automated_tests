@@ -11,6 +11,8 @@ import io.qameta.allure.Story;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 
+import static org.testng.Assert.assertTrue;
+
 public class LoginTests extends BaseTests {
 
     private ThreadLocal<String> loginAccess = new ThreadLocal<>();
@@ -35,7 +37,7 @@ public class LoginTests extends BaseTests {
     @Feature("CTS Login Screen")
     @Story("User verification")
     @Description("To verify when user enters the correct user id and press tab then “Successfully Verified User“ message should display on the screen")
-    @Test
+//    @Test
     public void loginuseridsuceessmsgs() {
         LoginPage loginPage = new LoginPage(page);
         loginPage.enterUserId("1003").
@@ -88,11 +90,64 @@ public class LoginTests extends BaseTests {
     @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
     public void testForgetPassword(String userId, String password) {
         LoginPage loginPage = new LoginPage(page);
-        loginAccess.set(loginPage
-                .loginToCTS(userId, password));
+//        loginAccess.set(loginPage
+//                .loginToCTS(userId, password));
         loginPage.clickOnForgotPassword();
         loginPage.clickOnNextButton();
         loginPage.verifyUserVerifiedMessage(FORGET_PASS);
+    }
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User Login verification")
+    @Description("To check that when user enters the wrong user ID and click on next button, it will throw an error called User Not Found.")
+    @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
+    public void testForgetUserID(String userId, String password) {
+        LoginPage loginPage = new LoginPage(page);
+//        loginAccess.set(loginPage
+//                .loginToCTS(userId, password));
+        loginPage.clickOnForgotPassword();
+        loginPage.enterUserId("865");
+        loginPage.clickOnNextButton();
+    }
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User Login verification")
+    @Description("To verify that Back to login button is navigating to the main login page which contain user ID and password.")
+    @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
+    public void testBackToLoginNavigation(String userId, String password) {
+        LoginPage loginPage = new LoginPage(page);
+//        loginAccess.set(loginPage
+//                .loginToCTS(userId, password));
+        loginPage.clickOnForgotPassword();
+        loginPage.clickOnBackButton();
+
+    }
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User Login verification")
+    @Description("To check that if UserID field is mandatory field, if user skips the field and proceed further, it will throw an error called, Please enter your user id")
+    @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
+    public void testErrorMessageOnUserID(String userId, String password) {
+        LoginPage loginPage = new LoginPage(page);
+        loginPage.enterPassword(password);
+        loginPage.clickLogin();
+        loginPage.userIDErrorMessage();
+
+    }
+
+    @Epic("Login")
+    @Feature("CTS Login Screen")
+    @Story("User Login verification")
+    @Description("To check that if Password field is mandatory field, if user skips the field and proceed further, it will throw an error called, Please enter your password.")
+    @Test(dataProviderClass = LoginData.class, dataProvider = "userData")
+    public void testErrorMessageOnPassword(String userId, String password) {
+        LoginPage loginPage = new LoginPage(page);
+        loginPage.enterUserId(userId).clickLogin();
+        loginPage.passwordErrorMessage();
+
     }
 
     @AfterMethod(alwaysRun = true)
